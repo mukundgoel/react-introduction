@@ -8,11 +8,20 @@ import ReactDOM from 'react-dom';
 class App extends React.Component {
 	constructor() {
 		super();
-		this.state = { txt: 'this is the state txt'}
+		this.state = {
+			// set initial state to 0 for all 3 Sliders
+			red: 0,
+			green: 0,
+			blue: 0
+		}
 		this.update = this.update.bind(this)
 	}
 	update(e) {
-		this.setState({txt: e.target.value})
+		this.setState({
+			red: ReactDOM.findDOMNode(this.refs.red).value,
+			green: ReactDOM.findDOMNode(this.refs.green).value,
+			blue: ReactDOM.findDOMNode(this.refs.blue).value
+		})
 	}
 	render() {
 		//let txt = this.props.txt;
@@ -21,10 +30,15 @@ class App extends React.Component {
 		// App is parent React component, and Widget is child component
 		return (
 			<div>
-				<Widget txt={this.state.txt} update={this.update} />
-				<Widget txt={this.state.txt} update={this.update} />
-				<Widget txt={this.state.txt} update={this.update} />
-				<Widget txt={this.state.txt} update={this.update} />
+				<Slider ref='red' update={this.update} />
+				{this.state.red}
+				<br />
+				<Slider ref='green' update={this.update} />
+				{this.state.green}
+				<br />
+				<Slider ref='blue' update={this.update} />
+				{this.state.blue}
+				<br />
 			</div>
 		)
 	}
@@ -43,15 +57,15 @@ App.defaultProps = {
 	cat: 5
 }
 
-// creating another React component
-// should go in another file, but here it is fine for our purposes
-const Widget = (props) => {
-			return (
-			<div>
-				<input type="text" onChange={props.update} />
-				<h1>{props.txt}</h1>
-			</div>
-		);
+class Slider extends React.Component {
+	render() {
+		return (
+			<input type='range'
+				min='0'
+				max='255'
+				onChange={this.props.update} />
+		)
+	}
 }
 
 ReactDOM.render(
