@@ -11,7 +11,6 @@ class App extends React.Component {
 		this.state = { txt: 'this is the state txt'}
 	}
 	update(e) {
-		console.log(e)
 		this.setState({txt: e.target.value})
 	}
 	render() {
