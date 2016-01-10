@@ -6,10 +6,24 @@ import ReactDOM from 'react-dom';
 
 // This is a stateful component
 class App extends React.Component {
+	constructor() {
+		super();
+		this.state = { txt: 'this is the state txt'}
+	}
+	update(e) {
+		console.log(e)
+		this.setState({txt: e.target.value})
+	}
 	render() {
 		let txt = this.props.txt;
 		let cat = this.props.cat;
-		return <h1>{txt} ({cat})</h1>
+		return (
+			<div>
+				<h1>{txt} ({cat})</h1>
+				<input type="text" onChange={this.update.bind(this)} />
+				<h1>{this.state.txt}</h1>
+			</div>
+		);
 	}
 }
 
