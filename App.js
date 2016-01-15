@@ -1,9 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 
-// uncomment this when loading from main.js
-//import App from './App'
-
 // This is a stateful component
 class App extends React.Component {
 	constructor() {
@@ -21,10 +18,37 @@ class App extends React.Component {
 	componentDidMount() {
 		console.log('mounted');
 	}
+	componentWillUnmount() {
+		console.log('bye!');
+	}
 	render() {
 		console.log('rendering!')
 		return <button onClick={this.update}>{this.state.val}</button>
 	}
 }
 
-export default App
+class Wrapper extends React.Component {
+	constructor() {
+		super();
+	}
+	mount() {
+		console.log('inside Wrapper mount()')
+		ReactDOM.render(<App />, document.getElementById('a'))
+	}
+	unmount() {
+		console.log('inside Wrapper unmount()')
+		ReactDOM.unmountComponentAtNode(document.getElementById('a'))
+	}
+	render() {
+		return (
+			<div>
+				<button onClick={this.mount.bind(this)}>Mount</button>
+				<button onClick={this.unmount.bind(this)}>UnMount</button>
+				<div id="a"></div>
+			</div>
+		)
+	}
+}
+
+// Export Wrapper (not App), since we are loading App from the Wrapper
+export default Wrapper
