@@ -14,6 +14,13 @@ class App extends React.Component {
 	update(e) {
 		this.setState({ val: this.state.val + 1 })
 	}
+	componentWillMount() {
+		// component is fully preped and guaranteed to make it into DOM
+		console.log('mounting');
+	}
+	componentDidMount() {
+		console.log('mounted');
+	}
 	render() {
 		console.log('rendering!')
 		return <button onClick={this.update}>{this.state.val}</button>
