@@ -24,6 +24,12 @@ class App extends React.Component {
 		console.log('bye!');
 		clearInterval(this.inc)
 	}
+	componentWillReceiveProps(nextProps) {
+		// takes in next props and will allow you to do what you want here with those
+	}
+	shouldComponentUpdate(nextProps, nextState) {
+		// conditional update for the component
+	}
 	render() {
 		console.log('rendering!')
 		return <button onClick={this.update}>{this.state.val * this.state.multiplier}</button>
